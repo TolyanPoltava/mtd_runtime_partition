@@ -321,7 +321,7 @@ static ssize_t mtd_write(struct file *file, const char __user *buf, size_t count
 
 /*======================================================================
 
-    IOCTL calls for getting device parameters.
+	IOCTL calls for getting device parameters.
 
 ======================================================================*/
 static void mtdchar_erase_callback (struct erase_info *instr)
@@ -446,7 +446,7 @@ static int mtd_do_readoob(struct mtd_info *mtd, uint64_t start,
 	if (put_user(ops.oobretlen, retp))
 		ret = -EFAULT;
 	else if (ops.oobretlen && copy_to_user(ptr, ops.oobbuf,
-					    ops.oobretlen))
+						ops.oobretlen))
 		ret = -EFAULT;
 
 	kfree(ops.oobbuf);
@@ -454,7 +454,7 @@ static int mtd_do_readoob(struct mtd_info *mtd, uint64_t start,
 }
 
 static int mtd_ioctl(struct inode *inode, struct file *file,
-		     u_int cmd, u_long arg)
+			 u_int cmd, u_long arg)
 {
 	struct mtd_file_info *mfi = file->private_data;
 	struct mtd_info *mtd = mfi->mtd;
@@ -493,8 +493,8 @@ static int mtd_ioctl(struct inode *inode, struct file *file,
 		kr = &(mtd->eraseregions[ur_idx]);
 
 		if (put_user(kr->offset, &(ur->offset))
-		    || put_user(kr->erasesize, &(ur->erasesize))
-		    || put_user(kr->numblocks, &(ur->numblocks)))
+			|| put_user(kr->erasesize, &(ur->erasesize))
+			|| put_user(kr->numblocks, &(ur->numblocks)))
 			return -EFAULT;
 
 		break;
@@ -535,7 +535,7 @@ static int mtd_ioctl(struct inode *inode, struct file *file,
 				struct erase_info_user64 einfo64;
 
 				if (copy_from_user(&einfo64, argp,
-					    sizeof(struct erase_info_user64))) {
+						sizeof(struct erase_info_user64))) {
 					kfree(erase);
 					return -EFAULT;
 				}
@@ -545,7 +545,7 @@ static int mtd_ioctl(struct inode *inode, struct file *file,
 				struct erase_info_user einfo32;
 
 				if (copy_from_user(&einfo32, argp,
-					    sizeof(struct erase_info_user))) {
+						sizeof(struct erase_info_user))) {
 					kfree(erase);
 					return -EFAULT;
 				}
@@ -570,7 +570,7 @@ static int mtd_ioctl(struct inode *inode, struct file *file,
 				set_current_state(TASK_UNINTERRUPTIBLE);
 				add_wait_queue(&waitq, &wait);
 				if (erase->state != MTD_ERASE_DONE &&
-				    erase->state != MTD_ERASE_FAILED)
+					erase->state != MTD_ERASE_FAILED)
 					schedule();
 				remove_wait_queue(&waitq, &wait);
 				set_current_state(TASK_RUNNING);
@@ -679,7 +679,7 @@ static int mtd_ioctl(struct inode *inode, struct file *file,
 		oi.useecc = MTD_NANDECC_AUTOPLACE;
 		memcpy(&oi.eccpos, mtd->ecclayout->eccpos, sizeof(oi.eccpos));
 		memcpy(&oi.oobfree, mtd->ecclayout->oobfree,
-		       sizeof(oi.oobfree));
+			   sizeof(oi.oobfree));
 		oi.eccbytes = mtd->ecclayout->eccbytes;
 
 		if (copy_to_user(argp, &oi, sizeof(struct nand_oobinfo)))
@@ -840,10 +840,10 @@ static int mtd_ioctl(struct inode *inode, struct file *file,
 			ret = -EINVAL;
 			break;
 		}
-        
-        pst_minfo = kzalloc(sizeof(struct mtd_partition), GFP_KERNEL);
+		
+		pst_minfo = kzalloc(sizeof(struct mtd_partition), GFP_KERNEL);
 
-		pst_minfo->name  = "";
+		pst_minfo->name	 = "";
 		pst_minfo->offset = upartition.partition_offset;
 		pst_minfo->size = shrink_device->size - pst_minfo->offset;
 		pst_minfo->mask_flags = MTD_READWRITE;
@@ -932,7 +932,7 @@ static long mtd_compat_ioctl(struct file *file, unsigned int cmd,
 /*
  * try to determine where a shared mapping can be made
  * - only supported for NOMMU at the moment (MMU can't doesn't copy private
- *   mappings)
+ *	 mappings)
  */
 #ifndef CONFIG_MMU
 static unsigned long mtd_get_unmapped_area(struct file *file,
@@ -1006,7 +1006,7 @@ static int __init init_mtdchar(void)
 	status = register_chrdev(MTD_CHAR_MAJOR, "mtd", &mtd_fops);
 	if (status < 0) {
 		printk(KERN_NOTICE "Can't allocate major number %d for Memory Technology Devices.\n",
-		       MTD_CHAR_MAJOR);
+			   MTD_CHAR_MAJOR);
 	}
 
 	return status;
