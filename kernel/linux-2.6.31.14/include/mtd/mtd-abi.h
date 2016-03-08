@@ -30,6 +30,12 @@ struct mtd_oob_buf64 {
 	__u64 usr_ptr;
 };
 
+struct user_mtd_info {
+	__u32 mtd_num;
+    __u64 partition_offset;
+};
+#define MTD_READWRITE		(0)
+
 #define MTD_ABSENT		0
 #define MTD_RAM			1
 #define MTD_ROM			2
@@ -110,7 +116,7 @@ struct otp_info {
 #define MEMERASE64		_IOW('M', 20, struct erase_info_user64)
 #define MEMWRITEOOB64		_IOWR('M', 21, struct mtd_oob_buf64)
 #define MEMREADOOB64		_IOWR('M', 22, struct mtd_oob_buf64)
-
+#define MTDPARTITIONSHIFT		_IOW('M', 23, int)
 /*
  * Obsolete legacy interface. Keep it in order not to break userspace
  * interfaces
