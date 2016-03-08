@@ -20,6 +20,10 @@ My code assumes the following partition structure:
 
 This allowed me to create a script that burned a new image into `mtd0` and moved my JFFS2 files over from the original `mtd1` to the new `mtd3`. On restart, the new Linux image contained an updated Device Tree with the new partition boundaries/sizes.
 
+**Usage example:**
+
+```./mtd_runtime_partition 0x200000```
+
 For more details see: ["Resize MTD partitions at runtime"](http://stackoverflow.com/questions/10836715/resize-mtd-partitions-at-runtime)
 
 **Note:** I am no longer maintaining this, just posting it in case anyone is trying to tackle a similar issue and need a starting point.
