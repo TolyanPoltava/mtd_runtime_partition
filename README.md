@@ -1,7 +1,7 @@
 # mtd_runtime_partition
 This is some old code I wrote a few years ago to resize MTD partitions on an embedded MPC875 system while Linux is running.
 
-It is based off of Linux MTD Utils, I used the following links as a starting point:
+It is based off of Linux MTD Utils and involves a user-space Linux utility and a MTD driver patch. I used the following links as a starting point:
 * http://article.gmane.org/gmane.linux.drivers.mtd/30949
 * http://article.gmane.org/gmane.linux.drivers.mtd/30950
 * http://article.gmane.org/gmane.linux.drivers.mtd/30951
